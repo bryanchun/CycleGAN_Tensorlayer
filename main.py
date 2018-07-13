@@ -19,7 +19,7 @@ flags.DEFINE_float("learning_rate", 0.0002, "Learning rate of for adam [0.0002]"
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.5]")
 flags.DEFINE_float("weight_decay", 1e-5, "Weight decay for l2 loss")
 flags.DEFINE_float("pool_size", 50, 'size of image buffer that stores previously generated images, default: 50')
-flags.DEFINE_integer("train_size", np.inf, "The size of train images [np.inf]")
+flags.DEFINE_float("train_size", np.inf, "The size of train images [np.inf]")
 flags.DEFINE_integer("batch_size", 1, "The number of batch images [1] if we use InstanceNormLayer !")
 flags.DEFINE_integer("image_size", 256, "The size of image to use (will be center cropped) [256]")
 flags.DEFINE_integer("gf_dim", 32, "Size of generator filters in first layer")

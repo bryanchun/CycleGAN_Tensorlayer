@@ -4,7 +4,7 @@ import os, sys
 import tensorflow as tf
 
 out_size = 256
-dataset_dir = "subflower2daisy"
+dataset_dir = "trump2cage"
 path = './datasets/{}/'.format(dataset_dir + '/trainB')
 # path = "./horse2zebra/trainB/"
 dirs = os.listdir(path)
