@@ -12,6 +12,9 @@ from model_deconv import *
 import argparse
 from collections import namedtuple
 
+global dataset_dir
+dataset_dir = "trump2cage"
+
 pp = pprint.PrettyPrinter()
 flags = tf.app.flags
 flags.DEFINE_integer("epoch", 200, "Epoch to train [100]")
@@ -30,7 +33,7 @@ flags.DEFINE_integer("sample_size", 64, "The number of sample images [64]")
 flags.DEFINE_integer("c_dim", 3, "Dimension of image color. [3]")
 flags.DEFINE_integer("sample_step", 500, "The interval of generating sample. [500]")
 flags.DEFINE_integer("save_step", 200, "The interval of saveing checkpoints. [200]")
-flags.DEFINE_string("dataset_dir", "horse2zebra", "The name of dataset [horse2zebra, apple2orange, sunflower2daisy and etc]")
+flags.DEFINE_string("dataset_dir", dataset_dir, "The name of dataset [horse2zebra, apple2orange, sunflower2daisy and etc]")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
 flags.DEFINE_string("sample_dir", "samples", "Directory name to save the image samples [samples]")
 flags.DEFINE_string("direction", "forward", "The direction of generator [forward, backward]")
