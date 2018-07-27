@@ -1,4 +1,5 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import pprint
 import numpy as np
 import tensorflow as tf
@@ -128,7 +129,6 @@ def train_cyclegan():
     d_A_vars = tl.layers.get_variables_with_name('dis_A', True, True)
     d_B_vars = tl.layers.get_variables_with_name('dis_B', True, True)
 
-    # with tf.device('/gpu:0'):
     with tf.variable_scope('learning_rate'):
         lr_v = tf.Variable(FLAGS.learning_rate, trainable=False)
     g_a2b_optim = tf.train.AdamOptimizer(lr_v, beta1=FLAGS.beta1).minimize(g_a2b_loss, var_list=g_A2B_vars)
@@ -281,7 +281,7 @@ def main(_):
     # elif args.phase == 'test':
     #     test_cyclegan()
     train_cyclegan()
-    # test_cyclegan()
+    #test_cyclegan()
 
 
 if __name__ == '__main__':
