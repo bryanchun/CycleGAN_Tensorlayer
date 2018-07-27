@@ -1,4 +1,5 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 import pprint
 import numpy as np
 import tensorflow as tf
@@ -12,6 +13,9 @@ from model_deconv import *
 import argparse
 from collections import namedtuple
 
+global dataset_dir
+dataset_dir = "trump2cage"
+
 pp = pprint.PrettyPrinter()
 flags = tf.app.flags
 flags.DEFINE_integer("epoch", 200, "Epoch to train [100]")
@@ -19,7 +23,7 @@ flags.DEFINE_float("learning_rate", 0.0002, "Learning rate of for adam [0.0002]"
 flags.DEFINE_float("beta1", 0.5, "Momentum term of adam [0.5]")
 flags.DEFINE_float("weight_decay", 1e-5, "Weight decay for l2 loss")
 flags.DEFINE_float("pool_size", 50, 'size of image buffer that stores previously generated images, default: 50')
-flags.DEFINE_integer("train_size", np.inf, "The size of train images [np.inf]")
+flags.DEFINE_float("train_size", np.inf, "The size of train images [np.inf]")
 flags.DEFINE_integer("batch_size", 1, "The number of batch images [1] if we use InstanceNormLayer !")
 flags.DEFINE_integer("image_size", 256, "The size of image to use (will be center cropped) [256]")
 flags.DEFINE_integer("gf_dim", 32, "Size of generator filters in first layer")
@@ -30,7 +34,7 @@ flags.DEFINE_integer("sample_size", 64, "The number of sample images [64]")
 flags.DEFINE_integer("c_dim", 3, "Dimension of image color. [3]")
 flags.DEFINE_integer("sample_step", 500, "The interval of generating sample. [500]")
 flags.DEFINE_integer("save_step", 200, "The interval of saveing checkpoints. [200]")
-flags.DEFINE_string("dataset_dir", "horse2zebra", "The name of dataset [horse2zebra, apple2orange, sunflower2daisy and etc]")
+flags.DEFINE_string("dataset_dir", dataset_dir, "The name of dataset [horse2zebra, apple2orange, sunflower2daisy and etc]")
 flags.DEFINE_string("checkpoint_dir", "checkpoint", "Directory name to save the checkpoints [checkpoint]")
 flags.DEFINE_string("sample_dir", "samples", "Directory name to save the image samples [samples]")
 flags.DEFINE_string("direction", "forward", "The direction of generator [forward, backward]")
@@ -125,7 +129,6 @@ def train_cyclegan():
     d_A_vars = tl.layers.get_variables_with_name('dis_A', True, True)
     d_B_vars = tl.layers.get_variables_with_name('dis_B', True, True)
 
-    # with tf.device('/gpu:0'):
     with tf.variable_scope('learning_rate'):
         lr_v = tf.Variable(FLAGS.learning_rate, trainable=False)
     g_a2b_optim = tf.train.AdamOptimizer(lr_v, beta1=FLAGS.beta1).minimize(g_a2b_loss, var_list=g_A2B_vars)
@@ -278,7 +281,7 @@ def main(_):
     # elif args.phase == 'test':
     #     test_cyclegan()
     train_cyclegan()
-    # test_cyclegan()
+    #test_cyclegan()
 
 
 if __name__ == '__main__':

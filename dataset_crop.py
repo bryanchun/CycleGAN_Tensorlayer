@@ -3,8 +3,13 @@ from PIL import Image
 import os, sys
 import tensorflow as tf
 
+flags = tf.app.flags
+FLAGS = flags.FLAGS
+
+dataset_dir = "trump2cage"
+
 out_size = 256
-dataset_dir = "subflower2daisy"
+
 path = './datasets/{}/'.format(dataset_dir + '/trainB')
 # path = "./horse2zebra/trainB/"
 dirs = os.listdir(path)

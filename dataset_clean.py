@@ -6,7 +6,7 @@ import tensorflow as tf
 flags = tf.app.flags
 FLAGS = flags.FLAGS
 
-dataset_dir = "sunflower2daisy"
+dataset_dir = "trump2cage"
 path = './datasets/{}/'.format(dataset_dir + '/trainB')
 
 dirs = os.listdir(path)
